@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Punto de Venta </title>
+	<script src="jquery.js" type="text/javascript" language="javascript"></script>
+	<script type="text/javascript" language="javascript">
+		function showPage() {
+			$("form").attr("action", "index.html");
+			$("#ingresar").click();
+		}
+		var Timeout;
+		function Cargar() {
+			Timeout = setTimeout(showPage, 1500);
+		}
+		$(document).ready(function(){
+			$("#ingresar").hide();
+			$("#btnSubmit").click(function(){
+				if($("#usr").val() != "asolares" && $("#usr").val() != "ASOLARES"){
+					alert("Usuario incorrecto!");
+					return;
+				}else if($("#pwd").val() != "123"){
+					alert("Contrasenia incorrecta!");
+					return;
+				}else{
+					$("#esconde").hide(1000);
+					Cargar();
+					return;
+				}
+			});
+		});
+	</script>
+	<style>
+		body {
+			font-family:Arial;
+		}
+		header {
+			text-align:center;
+			border:1px solid #04C;
+		}
+		#restart:before {
+			content:'\a';
+			white-space:pre;
+		}
+		fieldset label, fieldset input {
+			display:block;
+		}
+		fieldset {
+			margin:auto;
+			height:140px;
+			padding-top:45px;
+		}
+		#ls-sys, #usr-login {
+			display:inline-block;
+			padding:35px;
+		}
+		#usr-login {
+			width:600px;
+			margin-left:50px;
+		}
+		#btnSubmit {
+			margin-top:20px;
+			border:1px solid green;
+			background-color:green;
+			color:#fff;
+			padding:10px 15px;
+			font-size:15px;
+		}
+		#btnSubmit:hover {
+			margin-top:20px;
+			border:1px solid darkgreen;
+			background-color:darkgreen;
+			color:#fff;
+			padding:10px 15px;
+			font-size:15px;
+			cursor:pointer;
+		}
+		#ls-sys {
+			height:600px;
+			width:auto;
+			vertical-align:top;
+			background-color:#07C;
+			color:#fff;
+			border:1px solid #04C;
+		}
+	</style>
+</head>
+<body>
+	<div id="esconde">
+		<header>
+			<h1> Punto de Venta LS </h1>
+		</header>
+		<form>
+			<aside id="ls-sys">
+				<h2> LOGICSOFT, S.A. </h2>
+			</aside>
+			<section id="usr-login">
+				<fieldset>
+					<legend><h3> Ingreso de Usuario: </h3></legend>
+					<label> Usuario: </label><input type="text" id="usr" value="asolares" placeholder="Usuario" maxlength="20" />
+					<span id="restart"></span>
+					<label> Contrase&ntilde;a: </label><input type="password" id="pwd" value="123" placeholder="Contrase&ntilde;a" maxlength="20" />
+				</fieldset>
+				<span id="restart"></span>
+				<label>Recordar mi usuario y contrase&ntilde;a: &nbsp;</label><input type="checkbox" style="width:20px; height:20px; vertical-align:middle;" />
+				<span id="restart"></span>
+				<input type="button" id="btnSubmit" value="Ingresar" />
+				<input type="submit" id="ingresar" />
+			</section>
+		</form>
+	</div>
+</body>
+</html>

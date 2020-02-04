@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Punto de Venta </title>
+	<script src="jquery.js" type="text/javascript" language="javascript"></script>
+	<script type="text/javascript" language="javascript">
+		function showPage() {
+			$("#saludo").hide(300);
+			$(".hideable").show(500);
+			$("#menu_open").show(500);
+		}
+		var Timeout;
+		function Cargar() {
+			Timeout = setTimeout(showPage, 1500);
+		}
+		function iframeMenu(){
+			if($("#menu-frame").css("display") == "none"){
+				document.menuFrame.location = 'menu.html';
+				$(".hideable").hide(500);
+				$('#menu-frame').show(500);
+				$("#menu-button").val(".CERRAR MENU.");
+				$("#menu_open").css("margin-top", "0px");
+				$("#menu_open").css("margin-bottom", "10px");
+			}else{
+				$("#menu-frame").hide(500);
+				$(".hideable").show(500);
+				$("#menu-button").val(".ABRIR MENU.");
+				$("#menu_open").css("margin-top", "60px");
+				$("#menu_open").css("margin-bottom", "0px");
+			}
+		}
+		$(document).ready(function(){
+			Cargar();
+			$("#menu-frame").hide();
+			$("#bar-pref").hide();
+			$("#pref").click(function(){
+				if($("#bar-pref").css("display") == "none"){
+					$("#bar-pref").show(500);
+				}else{
+					$("#bar-pref").hide(500);
+				}
+			});
+			$("#help").click(function(){
+				alert("Esta pagina, al ser una demostracion, no tiene absolutamente nada relevante para mostrar en esta seccion.");
+			});
+			$("#pwd").click(function(){
+				alert("Esta opcion no funciona. ");
+			});
+		});
+	</script>
+	<style>
+		body {
+			font-family: Arial;
+		}
+		nav ul li {
+			display:inline-block;
+		}
+		nav ul li:hover {
+			display:inline-block;
+			cursor:pointer;
+		}
+		nav ul li a {
+			margin:2px;
+			padding:15px;
+			border:1px solid green;
+			text-decoration:none;
+			color:#000;
+			border-radius:5px;
+			background-color:#fff;
+		}
+		a {
+			text-decoration:none;
+			color:#000;
+		}
+		#bar-pref {
+			margin-top:10px;
+			border:1px solid #08C;
+			padding:10px;
+		}
+		#menu_open {
+			margin:auto;
+			text-align:center;
+			margin-top:60px;
+		}
+		#menu-button {
+			text-align:center;
+			padding:20px;
+			border:1px solid #000;
+			width:152px;
+		}
+		#menu-button:hover {
+			text-align:center;
+			padding:20px;
+			border:1px solid #000;
+			cursor:pointer;
+			width:152px;
+		}
+		#menu-frame {
+			width:100%;
+			height:650px;
+			border: 1px solid #07C;
+			margin:auto;
+		}
+		header {
+			text-align:left;
+			margin-bottom:0px;
+			margin-top:0px;
+			margin-left:0px;
+			margin-right:0px;
+			text-indent:50px;
+			border:1px solid rgb(38,28,78);
+			padding:5px;
+		}
+		header h1 {
+			padding:15px;
+			border-radius:5px;
+			margin-bottom:0px;
+			margin-top:0px;
+			color:#000;
+			font-size:32px;
+		}
+		header h2 {
+			padding:10px;
+			border-radius:5px;
+			margin-top:5px;
+			margin-bottom:0px;
+			color:#000;
+		}
+		nav {
+			text-align:left;
+			padding-left:90px;
+			padding-top:10px;
+			padding-bottom:10px;
+			border:1px solid #08C;
+			width:800px;
+			margin-left:50px;
+			border-radius:30px;
+		}
+		#saludo p {
+			position:absolute;
+			top:200px;
+			left:570px;
+			font-size:36px;
+		}
+		.hideable, #menu_open {
+			display:none;
+		}
+		footer {
+			position:absolute;
+			bottom:0px;
+			margin:auto;
+			border:1px solid green;
+			width:99%;
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<div id="saludo">
+		<p> BIENVENIDO AL SISTEMA! </p>
+	</div>
+	<div class="hideable">
+		<header>
+			<h1>  . de venta? </h1>
+			<h2> Demo? </h2>
+			<nav>
+				<ul>
+					<li id="li-pref"><a id="pref"> Ver Preferencias </a></li>
+					<li id="li-pwd"><a id="pwd"> Password </a></li>
+					<li id="li-help"><a id="help"> &iexcl;Ayuda! </a></li>
+					<li id="li-salir"><a id="salir" href="page_salida.html"> Salir </a></li>
+				</ul>
+			</nav>
+		</header>
+		<div id="bar-pref">
+			LOGICSOFT, S.A. :: OFICINA CENTRAL :: 2017
+		</div>
+	</div>
+	<div id="menu_open">
+		<input type="button" id="menu-button" value=".ABRIR MENU." onclick="iframeMenu()" />
+	</div>
+	<iframe id="menu-frame" name="menuFrame">
+	</iframe>
+	<footer class="hideable">
+		<h5> Powered by LogicSoft, S.A. </h5>
+	</footer>
+</body>
+</html>
