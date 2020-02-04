@@ -1,2 +1,3 @@
 # puntoVenta
-Uno de mis primeros proyectos.
+Es un pequeño proyecto que simula un punto de venta en un restaurante.
+---

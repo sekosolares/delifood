@@ -3,19 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title> Punto de Venta </title>
-	<script src="jquery.js" type="text/javascript" language="javascript"></script>
+	<script src="js/jquery.js" type="text/javascript" language="javascript"></script>
 	<script type="text/javascript" language="javascript">
 		function fAtras(id){
-			$('#'+id).hide(500); 
-			$('header h1').text('Menu'); 
-			$('#sec-menu').show(500);
-			$("#tbl-pedido").show(500);
+			$('#'+id).fadeOut(500);
+			$('header h1').text('Menu');
+			window.setTimeout(() => {
+				$('#sec-menu').fadeIn(500);
+				$("#tbl-pedido").fadeIn(500);
+			}, 500);
 		}
 		function fEntrar(id, titulo){
-			$("#tbl-pedido").hide(500);
-			$("#sec-menu").hide(500);
+			$("#tbl-pedido").fadeOut(500);
+			$("#sec-menu").fadeOut(500);
 			$("header h1").text(titulo);
-			$("#"+id).show(500);
+			window.setTimeout(() => $("#"+id).fadeIn(500), 500);
 		}
 		function Pedir(id){
 			var cant = $("#"+id+" td:nth-child(4)").text()*1;
