@@ -14,22 +14,23 @@ function iframeMenu(){
     if($("#menu-frame").css("display") == "none"){
         document.menuFrame.location = 'menu.html';
         $(".hideable").fadeOut(500);
-        window.setTimeout(() => {
-            $('#menu-frame').fadeIn(500);
-            $("#menu-button").val(".CERRAR MENU.");
-            $("#menu-button").addClass("stage2");
-        }, 800);
+        $("#menu-button").val(".CERRAR MENU.");
+        $("#menu-button").addClass("stage2");
         $("#menu_open").css("margin-top", "0px");
         $("#menu_open").css("margin-bottom", "10px");
+        window.setTimeout(() => {
+            $('#menu-frame').fadeIn(500);
+        }, 800);
     }else{
         $("#menu-frame").fadeOut(500);
-        window.setTimeout(() => {
-            $(".hideable").fadeIn(500);
-            $("#menu-button").val(".ABRIR MENU.");
-            $("#menu-button").removeClass("stage2");
-        }, 800);
+        $("#menu-button").val(".ABRIR MENU.");
+        $("#menu-button").removeClass("stage2");
         $("#menu_open").css("margin-top", "60px");
         $("#menu_open").css("margin-bottom", "0px");
+        window.setTimeout(() => {
+            $(".hideable").fadeIn(500);
+            
+        }, 800);
     }
 }
 $(document).ready(function(){
