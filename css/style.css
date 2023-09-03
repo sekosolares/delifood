@@ -7,7 +7,7 @@
 }
 :root {
     font-size: 62.5%;
-    --bg-blue: rgb(125, 216, 189);
+    --bg-saludo: rgb(235, 235, 235);
     --color-yellow: #edff4f;
     --color-black: #1f1f1f;
     --color-light: #FFF;
@@ -21,7 +21,7 @@
     align-items: center;
     font-weight: 600;
     height: 100vh;
-    background-color: var(--bg-blue);
+    background-color: var(--bg-saludo);
 }
 
 .Navbar {
@@ -202,5 +202,6 @@
     }
     to {
         opacity: 0;
+        display: none;
     }
 }
