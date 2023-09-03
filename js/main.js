@@ -1,4 +1,8 @@
 const CURRENCY = 'GTQ';
+const IS_DEVELOPMENT = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+const API_URL = IS_DEVELOPMENT ? 'http://localhost:7000' : 'https://micro-ecommerce.onrender.com';
+
+console.log(`Using API URL: ${API_URL}`);
 
 const saludoElement = document.getElementById("Saludo");
 const rootElement = document.getElementById("Root");
@@ -6,120 +10,29 @@ const categoriasElement = document.getElementById("Categorias");
 const menuElement = document.getElementById("Menu");
 const menuAtrasAction = document.getElementById("MenuAtrasAction");
 
-const categories = [
-  {
-    id: 1,
-    nombre: "Entradas",
-    descripcion: "Categoria para las entradas",
-    image: "../images/entradas.png"
-  },
-  {
-    id: 2,
-    nombre: "Bebidas",
-    descripcion: "",
-    image: "../images/bebidas.png"
-  },
-  {
-    id: 3,
-    nombre: "Platos Fuertes",
-    descripcion: "",
-    image: "../images/fuerte.png"
-  },
-  {
-    id: 4,
-    nombre: "Carnes",
-    descripcion: "",
-    image: "../images/carnes.png"
-  },
-  {
-    id: 5,
-    nombre: "Postres",
-    descripcion: "Postres a elegir",
-    image: "../images/postres.png"
-  },
-  {
-    id: 6,
-    nombre: "Bebidas Alcoholicas",
-    descripcion: "Bebidas alcoholicas para consumir por mayores de edad",
-    image: "../images/alcoholicas.png"
-  }
-];
+let categories = [];
+fetch(`${API_URL}/categories`)
+  .then(response => response.json())
+  .then(json => {
+    const { data } = json;
+    categories = data.categories;
+    renderCategories(categories);
+  });
 
-const menus = [
-  {
-    id: 1,
-    nombre: "Carpaccio de Lomito",
-    descripcion: `Carpaccio de Lomito acompañado de una porcion de minipanes.
-
-    Disfrutelos acompañado de una bebida y una porcion de papas fritas por solo 8 ${CURRENCY} más.
-
-    Al pedir cerveza debe presentar identificacion`,
-    precio: 65.00,
-    image: "https://ds1e83w8pn0gs.cloudfront.net/fotosmultisite/1961-1.jpg",
-    categoria: {
-      id: 1,
-      nombre: "Entradas"
-    }
-  },
-  {
-    id: 2,
-    nombre: "Nachos Con Frijol",
-    descripcion: "Deliciosos nachos hechos en casa para un delicioso frijol volteado.",
-    precio: 45.99,
-    image: "https://assets.unileversolutions.com/recipes-v2/219309.jpg",
-    categoria: {
-      id: 1,
-      nombre: "Entradas"
-    }
-  },
-  {
-    id: 3,
-    nombre: "Café de Ojos",
-    descripcion: "Café de altura con champurradas de la casa.",
-    precio: 12.00,
-    image: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg",
-    categoria: {
-      id: 2,
-      nombre: "Bebidas"
-    }
-  },
-  {
-    id: 4,
-    nombre: "Porcion de Jamones",
-    descripcion: `Una porción de jamones con 4 diferentes variedades para degustar acompañadas de un fundido de queso.`,
-    precio: 17.99,
-    image: "https://images.pexels.com/photos/17205261/pexels-photo-17205261/free-photo-of-plato-almuerzo-mesa-rustico.jpeg?auto=compress&cs=tinysrgb&w=400",
-    categoria: {
-      id: 1,
-      nombre: "Entradas"
-    }
-  },
-  {
-    id: 5,
-    nombre: "Chorizo para todos",
-    descripcion: `Una variedad de chorizos a su disposición para compartir con todos. Puedes acompañarlo con tortillas de harina
-    o integrales. Por solo 8 ${CURRENCY} más, puedes agregar una porción de longanizas argentinas que le darán un complemento adicional delicioso.`,
-    precio: 28.99,
-    image: "https://images.pexels.com/photos/15476366/pexels-photo-15476366/free-photo-of-comida-delicioso-sabroso-salchicha.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    categoria: {
-      id: 1,
-      nombre: "Entradas"
-    }
-  }
-]
+let products = [];
+fetch(`${API_URL}/products`)
+  .then(response => response.json())
+  .then(json => {
+    const { data } = json;
+    products = data.products;
+  })
 
 const vanish = elem => elem.classList.add("do-vanish");
 
-function vanishElementAsyncDelay(elem, delay) {
-  return new Promise((resolve, reject) => {
-    if(!elem) {
-      reject(new Error("Can't find element!"));
-    }
-
-    setTimeout(() => {
-      vanish(elem);
-      setTimeout(() => resolve(elem), 1000);
-    }, delay);
+function renderCategories(categories) {
+  categories.forEach(category => {
+    const categoryElement = getCategoryComponent(category);
+    categoriasElement.appendChild(categoryElement);
   });
 }
 
@@ -130,10 +43,10 @@ function getCategoryComponent(category) {
 
   const imageItem = document.createElement("img");
   imageItem.setAttribute("src", category.image);
-  imageItem.setAttribute("alt", category.descripcion);
+  imageItem.setAttribute("alt", category.description);
 
   const figcapElement = document.createElement("figcaption");
-  figcapElement.innerText = category.nombre;
+  figcapElement.innerText = category.name;
 
   figElement.appendChild(imageItem);
   figElement.appendChild(figcapElement);
@@ -157,15 +70,15 @@ function getMenuComponent(menu) {
   divElement.setAttribute("id", `MenuItem_${menu.id}`);
 
   imgElement.setAttribute("src", menu.image);
-  imgElement.setAttribute("alt", menu.descripcion);
+  imgElement.setAttribute("alt", menu.description);
 
-  figcapElement.innerText = menu.nombre;
+  figcapElement.innerText = menu.name;
 
   precioElement.classList.add("MenuContent__Precio");
-  precioElement.innerText = `${menu.precio} ${CURRENCY}`;
+  precioElement.innerText = `${menu.price} ${CURRENCY}`;
 
   descripElement.classList.add("MenuContent__Descripcion");
-  descripElement.innerText = menu.descripcion ?? '';
+  descripElement.innerText = menu.description ?? '';
 
   figElement.appendChild(imgElement);
   figElement.appendChild(figcapElement);
@@ -182,7 +95,7 @@ function getMenuComponent(menu) {
 
   actionsElement.classList.add("MenuContent__Actions");
 
-  counterElement.setAttribute("id", `Counter_${menu.id}_${menu.categoria.id}`);
+  counterElement.setAttribute("id", `Counter_${menu.id}_${menu.categoryId}`);
   counterElement.innerText = 0;
 
   addButton.innerHTML = "Agregar";
@@ -206,7 +119,7 @@ function getMenuComponent(menu) {
 };
 
 function renderMenuByCategoryId(categoryId) {
-  const selectedMenus = menus.filter(menu => menu.categoria.id === categoryId);
+  const selectedMenus = products.filter(menu => menu.categoryId === categoryId);
   const menuContainer = menuElement.querySelector('.Menu__Content');
 
   selectedMenus.forEach(menu => {
@@ -239,12 +152,7 @@ function clearCounter(counterElement) {
   counterElement.innerText = 0;
 }
 
-saludoElement.classList.add('hidden');
-rootElement.classList.remove('hidden');
-
-categories.forEach(category => {
-  const categoryElement = getCategoryComponent(category);
-  categoriasElement.appendChild(categoryElement);
-});
+setTimeout(() => vanish(saludoElement), 3000);
+setTimeout(() => rootElement.classList.remove("hidden"), 4000);
 
 menuAtrasAction.addEventListener('click', backToCategories);
