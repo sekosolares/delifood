@@ -1,4 +1,4 @@
-const CURRENCY = 'GTQ';
+const CURRENCY = 'USD';
 const IS_DEVELOPMENT = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 const API_URL = IS_DEVELOPMENT ? 'http://localhost:8080' : 'https://delifood-production.up.railway.app';
 
